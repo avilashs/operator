@@ -1,0 +1,65 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "PVC Disk Expansions",
+    "tags": ["kubernetes", "pvc", "prometheus"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "5s",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Total PVC Expansions",
+        "id": 1,
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "sum(pvc_disk_expansions_total)",
+            "legendFormat": "Total Expansions"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none",
+            "decimals": 0
+          },
+          "overrides": []
+        },
+        "options": {
+          "reduceOptions": {
+            "calcs": ["lastNotNull"],
+            "fields": "",
+            "values": false
+          },
+          "orientation": "auto"
+        },
+        "gridPos": {"h": 6, "w": 12, "x": 0, "y": 0}
+      },
+      {
+        "type": "table",
+        "title": "Expansions by Namespace and PVC",
+        "id": 2,
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "expr": "pvc_disk_expansions_total",
+            "legendFormat": "{{namespace}} / {{pvc_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none",
+            "decimals": 0
+          },
+          "overrides": []
+        },
+        "options": {
+          "showHeader": true
+        },
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 6}
+      }
+    ]
+  },
+  "overwrite": false
+}
